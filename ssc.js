@@ -12,6 +12,8 @@ var onend = require('end-of-stream')
 import { render } from 'preact'
 import { html } from 'htm/preact'
 import { useState } from 'preact/hooks'
+var ssc = require('@nichoth/ssc')
+var ssbKeys = require("ssb-keys")
 
 // --------------------------------------
 
@@ -29,7 +31,7 @@ swarm.on('peer', function (stream, id) {
     state.peers.set(_peers)
 
     stream.on('data', function (data) {
-        addMsg(data.toString())
+        addMsg(JSON.parse(data.toString()))
     })
 
     onend(stream, () => {
@@ -38,6 +40,8 @@ swarm.on('peer', function (stream, id) {
         state.peers.set(peers)
     })
 })
+
+var keys = ssbKeys.generate()
 
 function addMsg (msg) {
     var newMsgs = state.msgs().concat([msg])
@@ -59,14 +63,26 @@ function App () {
 
     function submitMsg (ev) {
         ev.preventDefault()
-        var msg = ev.target.elements.newMsg.value
-        addMsg(msg)
-        sendMsg(msg)
+
+
+        // in here, make the json format for a post object
+        var content = {
+            type: 'post',
+            text: ev.target.elements.newMsg.value
+        }
+
+        // TODO: use the prev msg when making a new one
+        // (keys, prevMsg, content)
+        var _msg = ssc.createMsg(keys, null, content)
+
+
+        addMsg(_msg)
+        sendMsg(JSON.stringify(_msg))
     }
 
     return html`
         ${_state.msgs.map(msg => {
-            return html`<p class="msg">${msg}</p>`
+            return html`<p class="msg">${msg.content.text}</p>`
         })}
 
         <form class="msg-input" onSubmit=${submitMsg}>

@@ -6,8 +6,10 @@
   "scripts": {
     "start": "budo index.js:bundle.js --pushstate --dir=public --live --open -- -p esmify --debug",
     "start-web": "budo web.js:bundle.js --pushstate --dir=public --live --open -- -p esmify --debug",
+    "start-ssc": "budo ssc.js:bundle.js --pushstate --dir=public --live --open -- -p esmify --debug",
     "build": "browserify -p esmify --debug ./index.js > public/bundle.js",
     "build-web": "browserify -p esmify --debug ./web.js > public/bundle.js",
+    "build-ssc": "browserify -p esmify --debug ./ssc.js > public/bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -21,6 +23,7 @@
     "observ-struct": "^6.0.0",
     "preact": "^10.5.13",
     "signalhub": "^4.9.0",
+    "ssb-keys": "^8.1.0",
     "webrtc-swarm": "^2.9.0"
   },
   "devDependencies": {
