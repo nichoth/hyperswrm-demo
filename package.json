@@ -11,5 +11,13 @@
   },
   "author": "Nick Thomas <nichoth@gmail.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nichoth/hyperswrm-demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nichoth/hyperswrm-demo/issues"
+  },
+  "homepage": "https://github.com/nichoth/hyperswrm-demo#readme",
   "description": ""
 }
