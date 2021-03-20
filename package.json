@@ -13,6 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@nichoth/events": "^1.1.2",
     "@nichoth/ssc": "^0.0.3",
     "end-of-stream": "^1.4.4",
     "htm": "^3.0.4",

@@ -30,9 +30,17 @@ swarm.on('peer', function (stream, id) {
     _peers[id] = stream
     state.peers.set(_peers)
 
+
+    // add messages to state
+    // this works if peers give a straight stream of posts,
+    // no other message types
+    // it should really be a stream of different msg types, like naming
+    // yourself, etc
+    // also should gossip msgs from different users
     stream.on('data', function (data) {
         addMsg(JSON.parse(data.toString()))
     })
+
 
     onend(stream, () => {
         var peers = state.peers()
@@ -64,8 +72,6 @@ function App () {
     function submitMsg (ev) {
         ev.preventDefault()
 
-
-        // in here, make the json format for a post object
         var content = {
             type: 'post',
             text: ev.target.elements.newMsg.value
@@ -74,7 +80,6 @@ function App () {
         // TODO: use the prev msg when making a new one
         // (keys, prevMsg, content)
         var _msg = ssc.createMsg(keys, null, content)
-
 
         addMsg(_msg)
         sendMsg(JSON.stringify(_msg))
@@ -88,11 +93,10 @@ function App () {
         <form class="msg-input" onSubmit=${submitMsg}>
             <textarea id="newMsg" name="newMsg" cols="44" rows="12"></textarea>
             <div>
-                <input type="submit" value="new message" />
+                <input type="submit" value="senf new message" />
             </div>
         </form>
     `
 }
 
 render(html`<${App} />`, document.getElementById('content'));
-
