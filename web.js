@@ -42,3 +42,4 @@ swarm.on('connection', (socket, details) => {
   // you can now use the socket as a stream, eg:
   // socket.pipe(hypercore.replicate()).pipe(socket)
 })
+
