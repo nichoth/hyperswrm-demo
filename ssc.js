@@ -36,7 +36,8 @@ swarm.on('peer', function (stream, id) {
     // no other message types
     // it should really be a stream of different msg types, like naming
     // yourself, etc
-    // also should gossip msgs from different users
+
+    // should gossip msgs from different users
     stream.on('data', function (data) {
         addMsg(JSON.parse(data.toString()))
     })
@@ -56,18 +57,18 @@ function addMsg (msg) {
     state.msgs.set(newMsgs)
 }
 
+function sendMsg (msg) {
+    Object.keys(state.peers()).forEach(function (peerId) {
+        _state.peers[peerId].write(msg)
+    })
+}
+
 function App () {
     var [_state, setState] = useState(state())
     state(function onChange (newState) {
         console.log('state change', newState)
         setState(newState)
     })
-
-    function sendMsg (msg) {
-        Object.keys(_state.peers).forEach(function (peerId) {
-            _state.peers[peerId].write(msg)
-        })
-    }
 
     function submitMsg (ev) {
         ev.preventDefault()

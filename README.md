@@ -34,4 +34,10 @@ Need a map of publicKey to thier follow list. That way you can send foafs msgs
 `index.js` -- demo of `hyperswarm` -- doesn't work in browsers
 
 
+---------------------------------------------------
+
+* https://github.com/ssbc/epidemic-broadcast-trees -- ssb style replication
+
+
+
 
